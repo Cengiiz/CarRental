@@ -16,17 +16,17 @@ namespace CarRentalCore.Data
                 new Role { Name = "User", Description = "Regular user with limited access" }
             };
             context.Roles.AddRange(roles);
-
+            context.SaveChanges();
             // Kullanıcılar oluşturuluyor
             var users = new List<User>
             {
-                new User { UserName = "admin", Email = "admin@carrental.com", FirstName = "Admin", LastName = "User", IsActive = true },
-                new User { UserName = "ahmet", Email = "ahmet@carrental.com", FirstName = "Ahmet", LastName = "Kaya", IsActive = true },
-                new User { UserName = "mehmet", Email = "mehmet@carrental.com", FirstName = "Mehmet", LastName = "Yılmaz", IsActive = true },
-                new User { UserName = "ayse", Email = "ayse@carrental.com", FirstName = "Ayşe", LastName = "Öztürk", IsActive = true }
+                new User { UserName = "admin",PasswordHash="123456", Email = "admin@carrental.com", FirstName = "Admin", LastName = "User", IsActive = true },
+                new User { UserName = "ahmet", PasswordHash="123456",Email = "ahmet@carrental.com", FirstName = "Ahmet", LastName = "Kaya", IsActive = true },
+                new User { UserName = "mehmet",PasswordHash="123456", Email = "mehmet@carrental.com", FirstName = "Mehmet", LastName = "Yılmaz", IsActive = true },
+                new User { UserName = "ayse", PasswordHash="123456",Email = "ayse@carrental.com", FirstName = "Ayşe", LastName = "Öztürk", IsActive = true }
             };
             context.Users.AddRange(users);
-
+            context.SaveChanges();
             // Kullanıcı - Rol ilişkileri (UserRoles) oluşturuluyor
             var userRoles = new List<UserRole>
             {
@@ -36,7 +36,7 @@ namespace CarRentalCore.Data
                 new UserRole { UserId = 4, RoleId = 2 }  // Ayşe - User rolü
             };
             context.UserRoles.AddRange(userRoles);
-
+            context.SaveChanges();
             // Araçlar oluşturuluyor
             var vehicles = new List<Vehicle>
             {
@@ -45,7 +45,7 @@ namespace CarRentalCore.Data
                 new Vehicle { Name = "BMW 3 Series", LicensePlate = "36DEF789" }
             };
             context.Vehicles.AddRange(vehicles);
-
+            context.SaveChanges();
             // Araç Kayıtları (VehicleLogs) oluşturuluyor
             var vehicleLogs = new List<VehicleLog>
             {

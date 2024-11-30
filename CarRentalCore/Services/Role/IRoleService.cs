@@ -2,12 +2,8 @@
 
 namespace CarRentalCore.Services
 {
-    public interface IRoleService
+    public interface IRoleService : IBaseService<Role>
     {
-        Task<Role> GetByIdAsync(int id);
-        Task<IEnumerable<Role>> GetAllAsync();
-        Task<Role> CreateAsync(Role role);
-        Task<Role> UpdateAsync(Role role);
-        Task<bool> DeleteAsync(int id);
+        Task<Role> GetByIdWithIncludesAsync(int id);
     }
 }

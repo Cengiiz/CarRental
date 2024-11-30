@@ -1,5 +1,7 @@
 ﻿using CarRentalCore.Data;
+using CarRentalCore.Models;
 using CarRentalCore.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 public class UnitOfWork : IUnitOfWork
 {
@@ -8,18 +10,26 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(ApplicationDbContext context)
     {
         _context = context;
-        Users = new UserRepository(_context);
-        Roles = new RoleRepository(_context);
-        UserRoles = new UserRoleRepository(_context);
-        Vehicles = new VehicleRepository(_context);
-        VehicleLogs = new VehicleLogRepository(_context);
+        
+        RoleRepository = new RoleRepository(_context);
+        UserRepository = new UserRepository(_context);
+        UserRoleRepository = new UserRoleRepository(_context);
+        VehicleRepository = new VehicleRepository(_context);
+        VehicleLogRepository = new VehicleLogRepository(_context);
     }
 
-    public IUserRepository Users { get; private set; }
-    public IRoleRepository Roles { get; private set; }
-    public IUserRoleRepository UserRoles { get; private set; }
-    public IVehicleRepository Vehicles { get; private set; }
-    public IVehicleLogRepository VehicleLogs { get; private set; }
+    
+    public IRoleRepository RoleRepository { get; }
+    public IUserRepository UserRepository { get; }
+    public IUserRoleRepository UserRoleRepository { get; }
+    public IVehicleRepository VehicleRepository { get; }
+    public IVehicleLogRepository VehicleLogRepository { get; }
+
+    
+    public IBaseRepository<T> GetRepository<T>() where T : BaseModel
+    {
+        return new BaseRepository<T>(_context);
+    }
 
     public async Task<int> CompleteAsync()
     {

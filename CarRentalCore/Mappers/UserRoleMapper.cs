@@ -16,8 +16,8 @@ namespace CarRentalCore.Mappers
                 UpdatedBy = entity.UpdatedBy,
                 UserId = entity.UserId,
                 RoleId = entity.RoleId,
-                UserName = entity.User?.UserName,
-                RoleName = entity.Role?.Name
+                //UserName = entity.User?.UserName,
+                //RoleName = entity.Role?.Name
             };
         }
 

@@ -1,4 +1,5 @@
-﻿using CarRentalCore.DTOs;
+﻿using AutoMapper;
+using CarRentalCore.DTOs;
 using CarRentalCore.Mappers;
 using CarRentalCore.Models;
 using CarRentalCore.Services;
@@ -11,9 +12,10 @@ namespace CarRentalAPI.Controllers
     public class RoleController : ControllerBase
     {
         private readonly IRoleService _roleService;
-        private readonly IMapper<Role,RoleDto> _mapper;
+        //private readonly IMapper<Role, RoleDto> _mapper;
+        private readonly IMapper _mapper;
 
-        public RoleController(IRoleService roleService, IMapper<Role, RoleDto> mapper)
+        public RoleController(IRoleService roleService, IMapper mapper)
         {
             _roleService = roleService;
             _mapper = mapper;
@@ -22,10 +24,11 @@ namespace CarRentalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<RoleDto>> GetById(int id)
         {
-            var role = await _roleService.GetByIdAsync(id);
+            //var role = await _roleService.GetByIdAsync(id);
+            var role = await _roleService.GetByIdWithIncludesAsync(id);
             if (role == null) return NotFound();
 
-            var roleDto = _mapper.MapToDto(role);
+            var roleDto = _mapper.Map<RoleDto>(role);
             return Ok(roleDto);
         }
 
@@ -40,9 +43,9 @@ namespace CarRentalAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<RoleDto>> Create(RoleDto roleDto)
         {
-            var role = _mapper.MapToEntity(roleDto);
+            var role = _mapper.Map<Role>(roleDto);
             var createdRole = await _roleService.CreateAsync(role);
-            var createdRoleDto = _mapper.MapToDto(createdRole);
+            var createdRoleDto = _mapper.Map<RoleDto>(createdRole);
             return CreatedAtAction(nameof(GetById), new { id = createdRoleDto.Id }, createdRoleDto);
         }
 
@@ -51,7 +54,7 @@ namespace CarRentalAPI.Controllers
         {
             if (id != roleDto.Id) return BadRequest();
 
-            var role = _mapper.MapToEntity(roleDto);
+            var role = _mapper.Map<Role>(roleDto);
             var updatedRole = await _roleService.UpdateAsync(role);
             if (updatedRole == null) return NotFound();
 

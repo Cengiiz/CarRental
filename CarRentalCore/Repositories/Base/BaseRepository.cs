@@ -1,13 +1,15 @@
 ﻿using CarRentalCore.Data;
+using CarRentalCore;
 using CarRentalCore.Models;
 using CarRentalCore.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
-public class Repository<T> : IRepository<T> where T : BaseModel
+public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
 {
     private readonly ApplicationDbContext _context;
 
-    public Repository(ApplicationDbContext context)
+    public BaseRepository(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -48,4 +50,5 @@ public class Repository<T> : IRepository<T> where T : BaseModel
         await _context.SaveChangesAsync();
         return true;
     }
+
 }

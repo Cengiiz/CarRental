@@ -1,14 +1,10 @@
-﻿// IRoleRepository.cs
-using CarRentalCore.Models;
+﻿using CarRentalCore.Models;
+using System.Linq.Expressions;
 
 namespace CarRentalCore.Repositories
 {
-    public interface IRoleRepository : IRepository<Role>
+    public interface IRoleRepository : IBaseRepository<Role>
     {
-        Task<Role> GetByIdAsync(int id);
-        Task<IEnumerable<Role>> GetAllAsync();
-        Task<Role> AddAsync(Role role);
-        Task<Role> UpdateAsync(Role role);
-        Task<bool> DeleteAsync(int id);
+        Task<Role> GetByIdWithIncludesAsync(int id);
     }
 }

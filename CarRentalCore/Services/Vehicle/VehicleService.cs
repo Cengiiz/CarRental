@@ -1,42 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CarRentalCore.Models;
-using CarRentalCore.Repositories;
+﻿using CarRentalCore.Models;
 
 namespace CarRentalCore.Services
 {
-    public class VehicleService : IVehicleService
+    public class VehicleService : BaseService<Vehicle>, IVehicleService
     {
-        private readonly IVehicleRepository _vehicleRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public VehicleService(IVehicleRepository vehicleRepository)
+        public VehicleService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _vehicleRepository = vehicleRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<Vehicle> GetByIdAsync(int id)
-        {
-            return await _vehicleRepository.GetByIdAsync(id);
-        }
-
-        public async Task<IEnumerable<Vehicle>> GetAllAsync()
-        {
-            return await _vehicleRepository.GetAllAsync();
-        }
-
-        public async Task<Vehicle> CreateAsync(Vehicle vehicle)
-        {
-            return await _vehicleRepository.AddAsync(vehicle);
-        }
-
-        public async Task<Vehicle> UpdateAsync(Vehicle vehicle)
-        {
-            return await _vehicleRepository.UpdateAsync(vehicle);
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            return await _vehicleRepository.DeleteAsync(id);
-        }
     }
 }

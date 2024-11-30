@@ -16,13 +16,13 @@ namespace CarRentalCore.Mapper
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Role = user.UserRoles != null && user.UserRoles.Count > 0
-                       ? new RoleDto
-                       {
-                           Name = user.UserRoles.First().Role.Name,
-                           Description = user.UserRoles.First().Role.Description
-                       }
-                       : null,
+                //Role = user.UserRoles != null && user.UserRoles.Count > 0
+                //       ? new RoleDto
+                //       {
+                //           Name = user.UserRoles.First().Role.Name,
+                //           Description = user.UserRoles.First().Role.Description
+                //       }
+                //       : null,
                 CreatedAt = user.CreatedAt,
                 UpdatedAt = user.UpdatedAt
             };

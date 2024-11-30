@@ -1,40 +1,20 @@
 ﻿using CarRentalCore.Models;
-using CarRentalCore.Repositories;
 
 namespace CarRentalCore.Services
 {
-    public class RoleService : IRoleService
+    public class RoleService : BaseService<Role>, IRoleService
     {
-        private readonly IRoleRepository _roleRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RoleService(IRoleRepository roleRepository)
+        public RoleService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _roleRepository = roleRepository;
+            _unitOfWork = unitOfWork;
         }
-
-        public async Task<Role> GetByIdAsync(int id)
+        public async Task<Role> GetByIdWithIncludesAsync(int id)
         {
-            return await _roleRepository.GetByIdAsync(id);
-        }
-
-        public async Task<IEnumerable<Role>> GetAllAsync()
-        {
-            return await _roleRepository.GetAllAsync();
-        }
-
-        public async Task<Role> CreateAsync(Role role)
-        {
-            return await _roleRepository.AddAsync(role);
-        }
-
-        public async Task<Role> UpdateAsync(Role role)
-        {
-            return await _roleRepository.UpdateAsync(role);
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            return await _roleRepository.DeleteAsync(id);
+            var entity = await _unitOfWork.RoleRepository.GetByIdWithIncludesAsync(id);
+            return entity;
         }
     }
 }
+

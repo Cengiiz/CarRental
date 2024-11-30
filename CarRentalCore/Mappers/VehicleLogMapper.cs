@@ -16,7 +16,7 @@ namespace CarRentalAPI.Mappers
                 UpdatedAt = entity.UpdatedAt,
                 UpdatedBy = entity.UpdatedBy,
                 VehicleId = entity.VehicleId,
-                LicensePlate = entity.Vehicle?.LicensePlate,
+                //LicensePlate = entity.Vehicle?.LicensePlate,
                 ActiveWorkingHours = entity.ActiveWorkingHours,
                 MaintenanceHours = entity.MaintenanceHours,
                 IdleHours = entity.IdleHours,

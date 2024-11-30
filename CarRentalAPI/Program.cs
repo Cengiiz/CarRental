@@ -1,4 +1,12 @@
-using CarRentalCore.Data;  
+using CarRentalAPI.Mappers;
+using CarRentalCore.Data;
+using CarRentalCore.DTOs;
+using CarRentalCore.Mapper;
+using CarRentalCore.Mappers;
+using CarRentalCore.Mapping;
+using CarRentalCore.Models;
+using CarRentalCore.Repositories;
+using CarRentalCore.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -12,9 +20,35 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "CarRental API", Version = "v1" });
 });
-builder.Services.AddControllers();
 
+builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IVehicleLogService, VehicleLogService>();
+
+
+
+//builder.Services.AddScoped<IMapper<Role, RoleDto>, RoleMapper>();
+//builder.Services.AddScoped<IMapper<User, UserDto>, UserMapper>();
+//builder.Services.AddScoped<IMapper<Vehicle, VehicleDto>, VehicleMapper>();
+//builder.Services.AddScoped<IMapper<VehicleLog, VehicleLogDto>, VehicleLogMapper>();
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+}); ;
+
+builder.Services.AddAutoMapper(typeof(AutoMapping));
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    SeedData.Initialize(services, context);
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -22,7 +56,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "CarRental API V1");
-        c.RoutePrefix = "swagger"; // Swagger'ý kök URL'ye yönlendirmek için
+        c.RoutePrefix = "swagger";
     });
 }
 

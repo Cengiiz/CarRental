@@ -8,6 +8,7 @@ namespace CarRentalCore.DTOs
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public RoleDto Role { get; set; }
+        public string PasswordHash { get; set; }
+
     }
 }

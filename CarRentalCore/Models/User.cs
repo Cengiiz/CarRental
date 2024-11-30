@@ -8,6 +8,5 @@
         public string LastName { get; set; }
         public string PasswordHash { get; set; }
 
-        public ICollection<UserRole> UserRoles { get; set; }
     }
 }

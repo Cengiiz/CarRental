@@ -1,15 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CarRentalCore.Models;
+﻿using CarRentalCore.Models;
 
 namespace CarRentalCore.Repositories
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IBaseRepository<User>
     {
-        Task<User> GetByIdAsync(int id);
-        Task<IEnumerable<User>> GetAllAsync();
-        Task<User> AddAsync(User user);
-        Task<User> UpdateAsync(User user);
-        Task<bool> DeleteAsync(int id);
+
     }
 }

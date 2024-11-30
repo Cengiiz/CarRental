@@ -1,11 +1,15 @@
-﻿using CarRentalCore.Repositories;
+﻿using CarRentalCore.Models;
+using CarRentalCore.Repositories;
 
 public interface IUnitOfWork : IDisposable
 {
-    IUserRepository Users { get; }
-    IRoleRepository Roles { get; }
-    IUserRoleRepository UserRoles { get; }
-    IVehicleRepository Vehicles { get; }
-    IVehicleLogRepository VehicleLogs { get; }
+    IBaseRepository<T> GetRepository<T>() where T : BaseModel;
+
+    IRoleRepository RoleRepository { get; }
+    IUserRepository UserRepository { get; }
+    IUserRoleRepository UserRoleRepository { get; }
+    IVehicleRepository VehicleRepository { get; }
+    IVehicleLogRepository VehicleLogRepository { get; }
+
     Task<int> CompleteAsync();
 }

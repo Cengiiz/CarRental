@@ -1,9 +1,10 @@
 ﻿// IRepository.cs
 using CarRentalCore.Models;
+using System.Linq.Expressions;
 
 namespace CarRentalCore.Repositories
 {
-    public interface IRepository<T> where T : BaseModel
+    public interface IBaseRepository<T> where T : BaseModel
     {
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
