@@ -1,7 +1,18 @@
+using CarRentalMVC.Services;
+using RestSharp;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddSingleton<RestClient>(new RestClient(builder.Configuration.GetValue<string>("ApiBaseUrl")));
+
+builder.Services.AddScoped<IUserService, UserService>();
+
+
+
 
 var app = builder.Build();
 

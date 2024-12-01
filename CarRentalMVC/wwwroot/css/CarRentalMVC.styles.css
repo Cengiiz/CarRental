@@ -1,0 +1,48 @@
+/* Sidebar için stil */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #2c3e50; /* Koyu Mavi */
+    color: white;
+    padding-top: 20px;
+}
+
+    /* Menü baþlýklarý */
+    .sidebar .nav-item {
+        width: 100%;
+    }
+
+    /* Menüyü stilize et */
+    .sidebar .nav-link {
+        color: #ecf0f1; /* Açýk Gri */
+        padding: 10px;
+        text-align: left;
+    }
+
+        .sidebar .nav-link:hover {
+            background-color: #34495e; /* Koyu Gri */
+        }
+
+    /* Dropdown menü öðeleri */
+    .sidebar .dropdown-item {
+        color: #bdc3c7; /* Daha açýk Gri */
+    }
+
+        /* Dropdown menü öðeleri hover */
+        .sidebar .dropdown-item:hover {
+            background-color: #7f8c8d; /* Gri */
+        }
+
+/* Ýçerik kýsmý */
+main {
+    margin-left: 250px; /* Menü alaný kadar boþluk býrak */
+    padding: 20px;
+}
+
+/* Footer ve tüm sayfa elemanlarý */
+footer {
+    margin-top: 30px;
+}

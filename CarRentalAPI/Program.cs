@@ -1,7 +1,7 @@
 using CarRentalCore.Data;
-using CarRentalCore.Mapping;
 using CarRentalCore.Repositories;
-using CarRentalCore.Services;
+using CarRentalService.Mapping;
+using CarRentalService.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -31,10 +31,11 @@ builder.Services.AddScoped<IVehicleLogService, VehicleLogService>();
 //builder.Services.AddScoped<IMapper<Vehicle, VehicleDto>, VehicleMapper>();
 //builder.Services.AddScoped<IMapper<VehicleLog, VehicleLogDto>, VehicleLogMapper>();
 
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-}); ;
+builder.Services.AddControllers();
+//    .addjsonoptions(options =>
+//{
+//    options.jsonserializeroptions.referencehandler = system.text.json.serialization.referencehandler.preserve;
+//});
 
 builder.Services.AddAutoMapper(typeof(AutoMapping));
 var app = builder.Build();
