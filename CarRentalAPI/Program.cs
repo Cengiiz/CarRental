@@ -1,10 +1,5 @@
-using CarRentalAPI.Mappers;
 using CarRentalCore.Data;
-using CarRentalCore.DTOs;
-using CarRentalCore.Mapper;
-using CarRentalCore.Mappers;
 using CarRentalCore.Mapping;
-using CarRentalCore.Models;
 using CarRentalCore.Repositories;
 using CarRentalCore.Services;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +20,7 @@ builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRoleService, UserRoleService>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IVehicleLogService, VehicleLogService>();
 

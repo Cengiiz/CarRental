@@ -1,5 +1,5 @@
-﻿using CarRentalCore.DTOs;
-using CarRentalCore.Mappers;
+﻿using AutoMapper;
+using CarRentalCore.DTOs;
 using CarRentalCore.Models;
 using CarRentalCore.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +11,9 @@ namespace CarRentalAPI.Controllers
     public class VehicleController : ControllerBase
     {
         private readonly IVehicleService _vehicleService;
-        private readonly IMapper<Vehicle, VehicleDto> _mapper;
+        private readonly IMapper _mapper;
 
-        public VehicleController(IVehicleService vehicleService, IMapper<Vehicle, VehicleDto> mapper)
+        public VehicleController(IVehicleService vehicleService, IMapper mapper)
         {
             _vehicleService = vehicleService;
             _mapper = mapper;
@@ -25,7 +25,7 @@ namespace CarRentalAPI.Controllers
             var vehicle = await _vehicleService.GetByIdAsync(id);
             if (vehicle == null) return NotFound();
 
-            var vehicleDto = _mapper.MapToDto(vehicle);
+            var vehicleDto = _mapper.Map<VehicleDto>(vehicle);
             return Ok(vehicleDto);
         }
 
@@ -40,9 +40,9 @@ namespace CarRentalAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<VehicleDto>> Create(VehicleDto vehicleDto)
         {
-            var vehicle = _mapper.MapToEntity(vehicleDto);
+            var vehicle = _mapper.Map<Vehicle>(vehicleDto);
             var createdVehicle = await _vehicleService.CreateAsync(vehicle);
-            var createdVehicleDto = _mapper.MapToDto(createdVehicle);
+            var createdVehicleDto = _mapper.Map<VehicleDto>(createdVehicle);
             return CreatedAtAction(nameof(GetById), new { id = createdVehicleDto.Id }, createdVehicleDto);
         }
 
@@ -51,7 +51,7 @@ namespace CarRentalAPI.Controllers
         {
             if (id != vehicleDto.Id) return BadRequest();
 
-            var vehicle = _mapper.MapToEntity(vehicleDto);
+            var vehicle = _mapper.Map<Vehicle>(vehicleDto);
             var updatedVehicle = await _vehicleService.UpdateAsync(vehicle);
             if (updatedVehicle == null) return NotFound();
 

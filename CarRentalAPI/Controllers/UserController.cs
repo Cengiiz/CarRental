@@ -1,5 +1,5 @@
-﻿using CarRentalCore.DTOs;
-using CarRentalCore.Mappers;
+﻿using AutoMapper;
+using CarRentalCore.DTOs;
 using CarRentalCore.Models;
 using CarRentalCore.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +11,9 @@ namespace CarRentalAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IMapper<User, UserDto> _mapper;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService userService, IMapper<User, UserDto> mapper)
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
             _mapper = mapper;
@@ -25,7 +25,7 @@ namespace CarRentalAPI.Controllers
             var user = await _userService.GetByIdAsync(id);
             if (user == null) return NotFound();
 
-            var userDto = _mapper.MapToDto(user);
+            var userDto = _mapper.Map<UserDto>(user);
             return Ok(userDto);
         }
 
@@ -40,9 +40,9 @@ namespace CarRentalAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Create(UserDto userDto)
         {
-            var user = _mapper.MapToEntity(userDto);
+            var user = _mapper.Map<User>(userDto);
             var createdUser = await _userService.CreateAsync(user);
-            var createdUserDto = _mapper.MapToDto(createdUser);
+            var createdUserDto = _mapper.Map<UserDto>(createdUser);
             return CreatedAtAction(nameof(GetById), new { id = createdUserDto.Id }, createdUserDto);
         }
 
@@ -51,7 +51,7 @@ namespace CarRentalAPI.Controllers
         {
             if (id != userDto.Id) return BadRequest();
 
-            var user = _mapper.MapToEntity(userDto);
+            var user = _mapper.Map<User>(userDto);
             var updatedUser = await _userService.UpdateAsync(user);
             if (updatedUser == null) return NotFound();
 

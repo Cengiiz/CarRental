@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CarRentalCore.DTOs;
-using CarRentalCore.Mappers;
 using CarRentalCore.Models;
 using CarRentalCore.Services;
 using Microsoft.AspNetCore.Mvc;

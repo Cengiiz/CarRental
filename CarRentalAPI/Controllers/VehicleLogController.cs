@@ -1,5 +1,5 @@
-﻿using CarRentalCore.DTOs;
-using CarRentalCore.Mappers;
+﻿using AutoMapper;
+using CarRentalCore.DTOs;
 using CarRentalCore.Models;
 using CarRentalCore.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +11,9 @@ namespace CarRentalAPI.Controllers
     public class VehicleLogController : ControllerBase
     {
         private readonly IVehicleLogService _vehicleLogService;
-        private readonly IMapper<VehicleLog, VehicleLogDto> _mapper;
+        private readonly IMapper _mapper;
 
-        public VehicleLogController(IVehicleLogService vehicleLogService, IMapper<VehicleLog, VehicleLogDto> mapper)
+        public VehicleLogController(IVehicleLogService vehicleLogService, IMapper mapper)
         {
             _vehicleLogService = vehicleLogService;
             _mapper = mapper;
@@ -25,7 +25,7 @@ namespace CarRentalAPI.Controllers
             var vehicleLog = await _vehicleLogService.GetByIdAsync(id);
             if (vehicleLog == null) return NotFound();
 
-            var vehicleLogDto = _mapper.MapToDto(vehicleLog);
+            var vehicleLogDto = _mapper.Map<VehicleLogDto>(vehicleLog);
             return Ok(vehicleLogDto);
         }
 
@@ -40,9 +40,9 @@ namespace CarRentalAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<VehicleLogDto>> Create(VehicleLogDto vehicleLogDto)
         {
-            var vehicleLog = _mapper.MapToEntity(vehicleLogDto);
+            var vehicleLog = _mapper.Map<VehicleLog>(vehicleLogDto);
             var createdVehicleLog = await _vehicleLogService.CreateAsync(vehicleLog);
-            var createdVehicleLogDto = _mapper.MapToDto(createdVehicleLog);
+            var createdVehicleLogDto = _mapper.Map<VehicleLogDto>(createdVehicleLog);
             return CreatedAtAction(nameof(GetById), new { id = createdVehicleLogDto.Id }, createdVehicleLogDto);
         }
 
@@ -51,7 +51,7 @@ namespace CarRentalAPI.Controllers
         {
             if (id != vehicleLogDto.Id) return BadRequest();
 
-            var vehicleLog = _mapper.MapToEntity(vehicleLogDto);
+            var vehicleLog = _mapper.Map<VehicleLog>(vehicleLogDto);
             var updatedVehicleLog = await _vehicleLogService.UpdateAsync(vehicleLog);
             if (updatedVehicleLog == null) return NotFound();
 
