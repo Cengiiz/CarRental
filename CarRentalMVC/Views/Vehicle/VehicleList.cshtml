@@ -1,0 +1,16 @@
+﻿@using CarRentalMVC.Models.DynamicGrid
+@using CarRentalService.DTOs
+@model List<VehicleDto>
+
+@{
+    ViewData["Title"] = "Araç Listesi";
+}
+
+<h1 class="mb-4" style="text-align:center">@ViewData["Title"]</h1>
+
+<div class="table-responsive">
+    @{
+        Html.RenderPartial("~/Views/Shared/CustomItem/DynamicGrid.cshtml", new DynamicGridViewModel { Data = Model, BaseRoute = "Vehicle" });
+    }
+
+</div>

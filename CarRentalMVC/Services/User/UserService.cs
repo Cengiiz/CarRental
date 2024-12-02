@@ -29,7 +29,7 @@ namespace CarRentalMVC.Services
             return response.Data;
         }
 
-        public async Task<UserDto> UpdateAsync(UserDto userDto)
+        public async Task<UserDto> UpdateUserAsync(UserDto userDto)
         {
             
             var request = new RestRequest($"UserApi/{userDto.Id}", Method.Put);

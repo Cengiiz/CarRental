@@ -22,27 +22,27 @@ namespace CarRentalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserRoleDto>> GetById(int id)
         {
-            var user = await _userRoleService.GetByIdAsync(id);
-            if (user == null) return NotFound();
+            var userRole = await _userRoleService.GetByIdAsync(id);
+            if (userRole == null) return NotFound();
 
-            var UserRoleDto = _mapper.Map<UserRoleDto>(user);
+            var UserRoleDto = _mapper.Map<UserRoleDto>(userRole);
             return Ok(UserRoleDto);
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<UserRoleDto>>> GetAll()
-        //{
-        //    var users = await _userRoleService.GetAllAsync();
-        //    var UserRoleDtos = _mapper.MapToEntity(users);
-        //    return Ok(UserRoleDtos);
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<UserRoleDto>>> GetAll()
+        {
+            var userRoles = await _userRoleService.GetAllAsync();
+            var UserRoleDtos = _mapper.Map<IEnumerable<UserRoleDto>>(userRoles);
+            return Ok(UserRoleDtos);
+        }
 
         [HttpPost]
         public async Task<ActionResult<UserRoleDto>> Create(UserRoleDto UserRoleDto)
         {
-            var user = _mapper.Map<UserRole>(UserRoleDto);
-            var createdUser = await _userRoleService.CreateAsync(user);
-            var createdUserRoleDto = _mapper.Map<UserRoleDto>(createdUser);
+            var userRole = _mapper.Map<UserRole>(UserRoleDto);
+            var createdUserRole = await _userRoleService.CreateAsync(userRole);
+            var createdUserRoleDto = _mapper.Map<UserRoleDto>(createdUserRole);
             return CreatedAtAction(nameof(GetById), new { id = createdUserRoleDto.Id }, createdUserRoleDto);
         }
 
@@ -51,8 +51,8 @@ namespace CarRentalAPI.Controllers
         {
             if (id != UserRoleDto.Id) return BadRequest();
 
-            var user = _mapper.Map<UserRole>(UserRoleDto);
-            var updatedUser = await _userRoleService.UpdateAsync(user);
+            var userRole = _mapper.Map<UserRole>(UserRoleDto);
+            var updatedUser = await _userRoleService.UpdateAsync(userRole);
             if (updatedUser == null) return NotFound();
 
             return NoContent();

@@ -29,13 +29,13 @@ namespace CarRentalAPI.Controllers
             return Ok(vehicleLogDto);
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<VehicleLogDto>>> GetAll()
-        //{
-        //    var vehicleLogs = await _vehicleLogService.GetAllAsync();
-        //    var vehicleLogDtos = _mapper.MapToDto(vehicleLogs);
-        //    return Ok(vehicleLogDtos);
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<VehicleLogDto>>> GetAll()
+        {
+            var vehicleLogs = await _vehicleLogService.GetAllAsync();
+            var vehicleLogDtos = _mapper.Map<VehicleLogDto>(vehicleLogs);
+            return Ok(vehicleLogDtos);
+        }
 
         [HttpPost]
         public async Task<ActionResult<VehicleLogDto>> Create(VehicleLogDto vehicleLogDto)

@@ -7,8 +7,12 @@
             {
                 foreach (var property in Model.Data.First().GetType().GetProperties())
                 {
+                    if (IsCollection(property.PropertyType))
+                        continue;
+
                     <th>@property.Name</th>
                 }
+
             }
             <th>Actions</th>
         </tr>
@@ -21,6 +25,9 @@
                 <tr>
                     @foreach (var property in item.GetType().GetProperties())
                     {
+                        if (IsCollection(property.PropertyType))
+                            continue;
+
                         <td>@property.GetValue(item)</td>
                     }
                     <td>
@@ -89,3 +96,12 @@
         }
     }
 </script>
+
+@functions {
+
+    bool IsCollection(Type type)
+    {
+        return (type.Name.StartsWith("ICollection") ||
+        type.IsClass) && type != typeof(string);
+    }
+}

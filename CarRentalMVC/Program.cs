@@ -10,6 +10,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<RestClient>(new RestClient(builder.Configuration.GetValue<string>("ApiBaseUrl")));
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRoleService, UserRoleService>();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
 
 
 

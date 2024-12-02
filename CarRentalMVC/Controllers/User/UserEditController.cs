@@ -26,9 +26,9 @@ namespace CarRentalMVC.Controllers.User
             if (ModelState.IsValid)
             {
                 // Model doğruysa, güncelleme işlemi yapılır
-                var result = _userService.UpdateAsync(userDto);
+                var result = await _userService.UpdateUserAsync(userDto);
 
-                if (result.IsCompletedSuccessfully)
+                if (result.Id > 0)
                 {
                     return RedirectToAction("UserList");
                 }
@@ -38,7 +38,7 @@ namespace CarRentalMVC.Controllers.User
                 }
             }
 
-            return View("~/Views/User/UserEdit.cshtml",userDto);
+            return View("~/Views/User/UserEdit.cshtml", userDto);
         }
     }
 }

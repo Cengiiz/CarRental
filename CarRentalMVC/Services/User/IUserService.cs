@@ -6,6 +6,6 @@ namespace CarRentalMVC.Services
     {
         Task<UserDto> GetUserAsync(int id);
         Task<List<UserDto>> GetUsersAsync();
-        Task<UserDto> UpdateAsync(UserDto userDto); 
+        Task<UserDto> UpdateUserAsync(UserDto userDto); 
     }
 }
