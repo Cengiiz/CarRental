@@ -1,48 +1,55 @@
-/* Sidebar için stil */
-.sidebar {
+#sidebar {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 250px;
-    height: 100vh;
-    background-color: #2c3e50; /* Koyu Mavi */
-    color: white;
-    padding-top: 20px;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background: #222;
+    color: #fff;
+    overflow-y: auto;
+    transition: all 0.4s ease-in-out;
+    z-index: 1000;
+    padding-top: 60px;
+    box-shadow: 3px 0 6px rgba(0, 0, 0, 0.4);
 }
 
-    /* Menü baþlýklarý */
-    .sidebar .nav-item {
-        width: 100%;
+    #sidebar.active {
+        left: 0;
     }
 
-    /* Menüyü stilize et */
-    .sidebar .nav-link {
-        color: #ecf0f1; /* Açýk Gri */
-        padding: 10px;
-        text-align: left;
+#menu-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: #ffcc00;
+    color: #000;
+    border: none;
+    font-size: 24px;
+    z-index: 1100;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#sidebar ul.nav {
+    padding: 0;
+}
+
+    #sidebar ul.nav li.nav-item {
+        list-style: none;
     }
 
-        .sidebar .nav-link:hover {
-            background-color: #34495e; /* Koyu Gri */
+    #sidebar ul.nav li a {
+        display: block;
+        padding: 15px 20px;
+        text-decoration: none;
+        color: #ffcc00;
+        font-weight: 600;
+        border-bottom: 1px solid #333;
+        transition: background 0.3s, color 0.3s;
+    }
+
+        #sidebar ul.nav li a:hover {
+            background: #444;
+            color: #fff;
         }
-
-    /* Dropdown menü öðeleri */
-    .sidebar .dropdown-item {
-        color: #bdc3c7; /* Daha açýk Gri */
-    }
-
-        /* Dropdown menü öðeleri hover */
-        .sidebar .dropdown-item:hover {
-            background-color: #7f8c8d; /* Gri */
-        }
-
-/* Ýçerik kýsmý */
-main {
-    margin-left: 250px; /* Menü alaný kadar boþluk býrak */
-    padding: 20px;
-}
-
-/* Footer ve tüm sayfa elemanlarý */
-footer {
-    margin-top: 30px;
-}

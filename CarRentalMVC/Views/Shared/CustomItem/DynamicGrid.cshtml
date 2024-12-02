@@ -1,0 +1,91 @@
+﻿@model CarRentalMVC.Models.DynamicGrid.DynamicGridViewModel
+
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            @if (Model.Data != null && Model.Data.Any())
+            {
+                foreach (var property in Model.Data.First().GetType().GetProperties())
+                {
+                    <th>@property.Name</th>
+                }
+            }
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Data != null && Model.Data.Any())
+        {
+            foreach (var item in Model.Data)
+            {
+                <tr>
+                    @foreach (var property in item.GetType().GetProperties())
+                    {
+                        <td>@property.GetValue(item)</td>
+                    }
+                    <td>
+                        <button class="btn btn-primary btn-sm"
+                                data-id="@item.GetType().GetProperty("Id")?.GetValue(item)"
+                                data-url="@Url.RouteUrl(new { controller = $"{@Model.BaseRoute}Edit", action = $"{@Model.BaseRoute}Edit", id = item.GetType().GetProperty("Id")?.GetValue(item) })"
+                                onclick="updateItem(this)">
+                            Update
+                        </button>
+                        <button class="btn btn-danger btn-sm"
+                                data-id="@item.GetType().GetProperty("Id")?.GetValue(item)"
+                                data-controller=@($"{Model.BaseRoute}Edit")
+                                data-action=@($"{Model.BaseRoute}Edit")
+                                onclick="deleteItem(this)">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="100%">No data available</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function updateItem(button) {
+        var url = $(button).data('url');
+
+        if (!url) {
+            alert("Invalid update URL");
+            return;
+        }
+
+        // Navigate to the UserEdit page with the corresponding id
+        window.location.href = url;
+    }
+
+    function deleteItem(button) {
+        var itemId = $(button).data('id');
+        var controller = $(button).data('controller');
+        var action = $(button).data('action');
+
+        if (!itemId || !controller || !action) {
+            alert("Invalid delete parameters");
+            return;
+        }
+
+        if (confirm('Are you sure you want to delete this item?')) {
+            $.ajax({
+                url: '/' + controller + '/' + action,
+                method: 'POST',
+                data: { id: itemId },
+                success: function () {
+                    alert('Item deleted successfully');
+                    $(button).closest('tr').remove();
+                },
+                error: function () {
+                    alert('Error deleting item');
+                }
+            });
+        }
+    }
+</script>

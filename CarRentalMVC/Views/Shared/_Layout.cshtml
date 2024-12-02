@@ -12,40 +12,34 @@
     <header>
         <div class="container-fluid">
             <div class="row">
-                <!-- Sol Menü -->
-                <div class="col-md-3 col-lg-2 sidebar">
+                <div class="col-12">
+                    <button class="menu-toggle" id="menu-toggle">☰</button>
+                </div>
+                <div class="sidebar" id="sidebar">
                     <ul class="nav flex-column">
                         <li class="nav-item dropdown" id="vehiclesDropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="collapse" data-bs-target="#vehiclesMenu" aria-expanded="false">
-                                Araç İşlemleri
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#">Araç İşlemleri</a>
                             <ul class="collapse" id="vehiclesMenu">
                                 <li><a class="dropdown-item" href="#">Araç Kaydı</a></li>
                                 <li><a class="dropdown-item" href="#">Araç Listesi</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" id="workTimesDropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="collapse" data-bs-target="#workTimesMenu" aria-expanded="false">
-                                Çalışma Süreleri
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#">Çalışma Süreleri</a>
                             <ul class="collapse" id="workTimesMenu">
                                 <li><a class="dropdown-item" href="#">Aktif Çalışma Süreleri</a></li>
                                 <li><a class="dropdown-item" href="#">Çalışma Grafikleri</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" id="userManagementDropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="collapse" data-bs-target="#userManagementMenu" aria-expanded="false">
-                                Kullanıcı Yönetimi
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#">Kullanıcı Yönetimi</a>
                             <ul class="collapse" id="userManagementMenu">
                                 <li><a class="dropdown-item" href="/UserList">Kullanıcı Listesi</a></li>
                                 <li><a class="dropdown-item" href="#">Rol Yönetimi</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" id="reportsDropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="collapse" data-bs-target="#reportsMenu" aria-expanded="false">
-                                Raporlar
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#">Raporlar</a>
                             <ul class="collapse" id="reportsMenu">
                                 <li><a class="dropdown-item" href="#">Haftalık Raporlar</a></li>
                                 <li><a class="dropdown-item" href="#">Grafik Raporlar</a></li>
@@ -53,15 +47,12 @@
                         </li>
                     </ul>
                 </div>
-
-                <!-- İçerik -->
-                <main class="col-md-9 col-lg-10 ms-sm-auto">
+                <main class="col-12 ms-sm-auto">
                     @RenderBody()
                 </main>
             </div>
         </div>
     </header>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - CarRentalMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -70,6 +61,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

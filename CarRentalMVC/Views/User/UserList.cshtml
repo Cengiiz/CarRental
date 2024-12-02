@@ -1,33 +1,16 @@
-﻿@using CarRentalService.DTOs
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using CarRentalMVC.Models.DynamicGrid
+@using CarRentalService.DTOs
 @model List<UserDto>
 
 @{
     ViewData["Title"] = "Kullanıcı Listesi";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="mb-4" style="text-align:center">@ViewData["Title"]</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Ad</th>
-            <th>Email</th>
-            <th>Rol</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.Id</td>
-                <td>@user.FirstName @user.LastName</td>
-                <td>@user.Email</td>
-                <td>@user.UserName</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="table-responsive">
+    @{
+        Html.RenderPartial("~/Views/Shared/CustomItem/DynamicGrid.cshtml", new DynamicGridViewModel { Data = Model, BaseRoute="User" });
+    }
+
+</div>
