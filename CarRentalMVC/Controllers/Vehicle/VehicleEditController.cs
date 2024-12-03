@@ -20,17 +20,18 @@ namespace CarRentalMVC.Controllers
         }
 
         [HttpPost]
+        [Route("VehicleUpdate")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(VehicleDto vehicleDto)
+        public async Task<IActionResult> VehicleUpdate(VehicleDto vehicleDto)
         {
             if (ModelState.IsValid)
             {
 
                 var result = await _vehicleService.UpdateVehicleAsync(vehicleDto);
 
-                if (result.Id > 0)
+                if (result.IsSuccessful)
                 {
-                    return RedirectToAction("VehicleList");
+                    return RedirectToAction("VehicleList", "VehicleList");
                 }
                 else
                 {

@@ -1,11 +1,9 @@
-﻿using CarRentalCore.Models;
-
-namespace CarRentalService.DTOs
+﻿namespace CarRentalService.DTOs
 {
-    public class VehicleDto : BaseModel
+    public class VehicleDto : BaseModelDto
     {
         public string Name { get; set; }
         public string LicensePlate { get; set; }
-        public ICollection<VehicleLogDto> VehicleWorkLogs { get; set; }
+        public ICollection<VehicleLogDto>? VehicleWorkLogs { get; set; }
     }
 }

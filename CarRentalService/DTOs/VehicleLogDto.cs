@@ -1,8 +1,6 @@
-﻿using CarRentalCore.Models;
-
-namespace CarRentalService.DTOs
+﻿namespace CarRentalService.DTOs
 {
-    public class VehicleLogDto : BaseModel
+    public class VehicleLogDto : BaseModelDto
     {
         public int VehicleId { get; set; }
         public VehicleDto Vehicle { get; set; }

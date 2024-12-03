@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarRentalMVC.Controllers
 {
-    public class VehicleController : Controller
+    public class VehicleListController : Controller
     {
         private readonly IVehicleService _vehicleService;
 
-        public VehicleController(IVehicleService vehicleService)
+        public VehicleListController(IVehicleService vehicleService)
         {
             _vehicleService = vehicleService;
         }

@@ -5,7 +5,7 @@
     {
         public string Name { get; set; }
         public string LicensePlate { get; set; }
-        public ICollection<VehicleLog> VehicleWorkLogs { get; set; }
+        public ICollection<VehicleLog>? VehicleWorkLogs { get; set; }
     }
 
 

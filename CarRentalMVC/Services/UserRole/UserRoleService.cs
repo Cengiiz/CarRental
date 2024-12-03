@@ -29,7 +29,7 @@ namespace CarRentalMVC.Services
             return response.Data;
         }
 
-        public async Task<UserRoleDto> UpdateUserRoleAsync(UserRoleDto userDto)
+        public async Task<RestResponse> UpdateUserRoleAsync(UserRoleDto userDto)
         {
             
             var request = new RestRequest($"UserRoleApi/{userDto.Id}", Method.Put);
@@ -39,9 +39,9 @@ namespace CarRentalMVC.Services
             request.AddJsonBody(jsonBody); // JSON gövdesini isteğe ekle
 
             
-            var response = await _client.ExecuteAsync<UserRoleDto>(request);
+            var response = await _client.ExecuteAsync<RestResponse>(request);
 
-            return response.Data;
+            return response;
         }
 
     }

@@ -10,22 +10,26 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(ApplicationDbContext context)
     {
         _context = context;
-        
+
         RoleRepository = new RoleRepository(_context);
         UserRepository = new UserRepository(_context);
         UserRoleRepository = new UserRoleRepository(_context);
         VehicleRepository = new VehicleRepository(_context);
         VehicleLogRepository = new VehicleLogRepository(_context);
+        MenuItemRepository = new MenuItemRepository(_context);
+        MenuItemRoleRepository = new MenuItemRoleRepository(_context);
     }
 
-    
+
     public IRoleRepository RoleRepository { get; }
     public IUserRepository UserRepository { get; }
     public IUserRoleRepository UserRoleRepository { get; }
     public IVehicleRepository VehicleRepository { get; }
     public IVehicleLogRepository VehicleLogRepository { get; }
+    public IMenuItemRepository MenuItemRepository { get; }
+    public IMenuItemRoleRepository MenuItemRoleRepository { get; }
 
-    
+
     public IBaseRepository<T> GetRepository<T>() where T : BaseModel
     {
         return new BaseRepository<T>(_context);

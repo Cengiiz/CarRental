@@ -20,17 +20,17 @@ namespace CarRentalMVC.Controllers.User
         }
 
         [HttpPost]
+        [Route("UserUpdate")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(UserDto userDto)
+        public async Task<IActionResult> UserUpdate(UserDto userDto)
         {
             if (ModelState.IsValid)
             {
-                // Model doğruysa, güncelleme işlemi yapılır
                 var result = await _userService.UpdateUserAsync(userDto);
 
-                if (result.Id > 0)
+                if (result.IsSuccessful)
                 {
-                    return RedirectToAction("UserList");
+                    return RedirectToAction("UserList", "UserList");
                 }
                 else
                 {

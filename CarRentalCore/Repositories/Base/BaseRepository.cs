@@ -1,5 +1,4 @@
 ﻿using CarRentalCore.Data;
-using CarRentalCore;
 using CarRentalCore.Models;
 using CarRentalCore.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -14,8 +13,11 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
         _context = context;
     }
 
+    private IQueryable<T> ActiveEntities => _context.Set<T>().Where(e => e.IsActive);
+
     public async Task<T> AddAsync(T entity)
     {
+        entity.IsActive = true;
         await _context.Set<T>().AddAsync(entity);
         await _context.SaveChangesAsync();
         return entity;
@@ -23,12 +25,12 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
 
     public async Task<T> GetByIdAsync(int id)
     {
-        return await _context.Set<T>().FindAsync(id);
+        return await ActiveEntities.FirstOrDefaultAsync(e => e.Id == id);
     }
 
     public async Task<IEnumerable<T>> GetAllAsync()
     {
-        return await _context.Set<T>().ToListAsync();
+        return await ActiveEntities.ToListAsync();
     }
 
     public async Task<T> UpdateAsync(T entity)
@@ -41,14 +43,19 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
     public async Task<bool> DeleteAsync(int id)
     {
         var entity = await _context.Set<T>().FindAsync(id);
-        if (entity == null)
+        if (entity == null || !entity.IsActive)
         {
             return false;
         }
 
-        _context.Set<T>().Remove(entity);
+        entity.IsActive = false;
+        _context.Set<T>().Update(entity);
         await _context.SaveChangesAsync();
         return true;
     }
 
+    public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await ActiveEntities.Where(predicate).ToListAsync();
+    }
 }

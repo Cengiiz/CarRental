@@ -1,8 +1,6 @@
-﻿using CarRentalCore.Models;
-
-namespace CarRentalService.DTOs
+﻿namespace CarRentalService.DTOs
 {
-    public class UserDto : BaseModel
+    public class UserDto : BaseModelDto
     {
         public string UserName { get; set; }
         public string Email { get; set; }

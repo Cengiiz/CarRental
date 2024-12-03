@@ -27,7 +27,7 @@ namespace CarRentalMVC.Services
             return response.Data;
         }
 
-        public async Task<VehicleDto> UpdateVehicleAsync(VehicleDto userDto)
+        public async Task<RestResponse> UpdateVehicleAsync(VehicleDto userDto)
         {
 
             var request = new RestRequest($"VehicleApi/{userDto.Id}", Method.Put);
@@ -37,9 +37,9 @@ namespace CarRentalMVC.Services
             request.AddJsonBody(jsonBody); // JSON gövdesini isteğe ekle
 
 
-            var response = await _client.ExecuteAsync<VehicleDto>(request);
+            var response = await _client.ExecuteAsync<RestResponse>(request);
 
-            return response.Data;
+            return response;
         }
 
     }

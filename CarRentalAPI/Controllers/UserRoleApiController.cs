@@ -55,7 +55,7 @@ namespace CarRentalAPI.Controllers
             var updatedUser = await _userRoleService.UpdateAsync(userRole);
             if (updatedUser == null) return NotFound();
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -64,7 +64,7 @@ namespace CarRentalAPI.Controllers
             var success = await _userRoleService.DeleteAsync(id);
             if (!success) return NotFound();
 
-            return NoContent();
+            return Ok();
         }
     }
 }

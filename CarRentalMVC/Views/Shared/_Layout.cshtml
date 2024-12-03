@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using CarRentalMVC.Models.LayoutView
+@model LayoutViewModel
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,34 +20,18 @@
                 </div>
                 <div class="sidebar" id="sidebar">
                     <ul class="nav flex-column">
-                        <li class="nav-item dropdown" id="vehiclesDropdown">
-                            <a class="nav-link dropdown-toggle" href="#">Araç İşlemleri</a>
-                            <ul class="collapse" id="vehiclesMenu">
-                                <li><a class="dropdown-item" href="#">Araç Kaydı</a></li>
-                                <li><a class="dropdown-item" href="/VehicleList">Araç Listesi</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown" id="workTimesDropdown">
-                            <a class="nav-link dropdown-toggle" href="#">Çalışma Süreleri</a>
-                            <ul class="collapse" id="workTimesMenu">
-                                <li><a class="dropdown-item" href="#">Aktif Çalışma Süreleri</a></li>
-                                <li><a class="dropdown-item" href="#">Çalışma Grafikleri</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown" id="userManagementDropdown">
-                            <a class="nav-link dropdown-toggle" href="#">Kullanıcı Yönetimi</a>
-                            <ul class="collapse" id="userManagementMenu">
-                                <li><a class="dropdown-item" href="/UserList">Kullanıcı Listesi</a></li>
-                                <li><a class="dropdown-item" href="/UserRoleList">Rol Yönetimi</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown" id="reportsDropdown">
-                            <a class="nav-link dropdown-toggle" href="#">Raporlar</a>
-                            <ul class="collapse" id="reportsMenu">
-                                <li><a class="dropdown-item" href="#">Haftalık Raporlar</a></li>
-                                <li><a class="dropdown-item" href="#">Grafik Raporlar</a></li>
-                            </ul>
-                        </li>
+                        @foreach (var menuItem in Model.MenuItems.Where(m => m.ParentMenuItemId == null))
+                        {
+                            <li class="nav-item dropdown" id="@menuItem.Name">
+                                <a class="nav-link dropdown-toggle" href="#">@menuItem.Name</a>
+                                <ul class="collapse" id="@menuItem.Name + " Menu"">
+                                    @foreach (var subMenuItem in Model.MenuItems.Where(m => m.ParentMenuItemId == menuItem.Id))
+                                    {
+                                        <li><a class="dropdown-item" href="@subMenuItem.Url">@subMenuItem.Name</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <main class="col-12 ms-sm-auto">
@@ -61,9 +48,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-        
-    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

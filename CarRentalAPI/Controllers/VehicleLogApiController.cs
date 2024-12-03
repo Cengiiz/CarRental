@@ -55,7 +55,7 @@ namespace CarRentalAPI.Controllers
             var updatedVehicleLog = await _vehicleLogService.UpdateAsync(vehicleLog);
             if (updatedVehicleLog == null) return NotFound();
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -64,7 +64,7 @@ namespace CarRentalAPI.Controllers
             var success = await _vehicleLogService.DeleteAsync(id);
             if (!success) return NotFound();
 
-            return NoContent();
+            return Ok();
         }
     }
 }

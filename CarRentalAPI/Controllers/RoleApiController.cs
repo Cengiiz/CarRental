@@ -57,7 +57,7 @@ namespace CarRentalAPI.Controllers
             var updatedRole = await _roleService.UpdateAsync(role);
             if (updatedRole == null) return NotFound();
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -66,7 +66,7 @@ namespace CarRentalAPI.Controllers
             var success = await _roleService.DeleteAsync(id);
             if (!success) return NotFound();
 
-            return NoContent();
+            return Ok();
         }
     }
 }

@@ -10,9 +10,11 @@
                     if (IsCollection(property.PropertyType))
                         continue;
 
-                    <th>@property.Name</th>
+                    <th>
+                        @property.Name
+                        <input type="text" class="form-control form-control-sm" placeholder="Search" data-column="@property.Name" onkeyup="filterTable()">
+                    </th>
                 }
-
             }
             <th>Actions</th>
         </tr>
@@ -58,6 +60,51 @@
 </table>
 
 <script>
+    function filterTable() {
+        var input, filter, table, tr, td, i, j, txtValue;
+        input = $("input[type='text']");
+        table = $("table");
+        tr = table.find("tbody tr");
+
+        tr.each(function () {
+            var showRow = true;
+            $(this).find("td").each(function (index) {
+                if (input[index] && input[index].value) {
+                    txtValue = $(this).text().toUpperCase();
+                    filter = input[index].value.toUpperCase();
+
+                    if (filter.startsWith("*") && filter.endsWith("*")) {
+                        filter = filter.slice(1, -1); // İçindeki * her iki uçtan da çıkar
+                        if (txtValue.indexOf(filter) === -1) {
+                            showRow = false;
+                        }
+                    } else if (filter.startsWith("*")) {
+                        filter = filter.slice(1); // Sadece baştaki * çıkar
+                        if (!txtValue.endsWith(filter)) {
+                            showRow = false;
+                        }
+                    } else if (filter.endsWith("*")) {
+                        filter = filter.slice(0, -1); // Sadece sonundaki * çıkar
+                        if (!txtValue.startsWith(filter)) {
+                            showRow = false;
+                        }
+                    } else {
+                        if (txtValue.indexOf(filter) === -1) {
+                            showRow = false;
+                        }
+                    }
+                }
+            });
+
+            if (showRow) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    }
+
+
     function updateItem(button) {
         var url = $(button).data('url');
 
@@ -66,7 +113,6 @@
             return;
         }
 
-        // Navigate to the UserEdit page with the corresponding id
         window.location.href = url;
     }
 

@@ -23,6 +23,12 @@ namespace CarRentalService.Mapping
             CreateMap<VehicleLog, VehicleLogDto>();
             CreateMap<VehicleLogDto, VehicleLog>();
 
+            CreateMap<MenuItem, MenuItemDto>();
+            CreateMap<MenuItemDto, MenuItem>();
+
+            CreateMap<MenuItemRole, MenuItemRoleDto>();
+            CreateMap<MenuItemRoleDto, MenuItemRole>();
+
         }
     }
 }

@@ -11,5 +11,8 @@ public interface IUnitOfWork : IDisposable
     IVehicleRepository VehicleRepository { get; }
     IVehicleLogRepository VehicleLogRepository { get; }
 
+    IMenuItemRepository MenuItemRepository { get; }
+    IMenuItemRoleRepository MenuItemRoleRepository { get; }
+
     Task<int> CompleteAsync();
 }

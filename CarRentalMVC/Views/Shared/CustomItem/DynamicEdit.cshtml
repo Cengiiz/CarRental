@@ -1,0 +1,54 @@
+﻿@using CarRentalMVC.Models.DynamicEdit
+@using System.Globalization
+@using CarRentalService.DTOs
+@model DynamicEditViewModel
+
+@{
+    var excludedProperties = typeof(BaseModelDto).GetProperties().Select(p => p.Name.ToUpper()).ToList();
+}
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="@($"{Model.BaseRoute}Edit")" asp-controller="@($"{Model.BaseRoute}Edit")" method="post" class="row g-3">
+            @if (Model.Data != null)
+            {
+                foreach (var property in Model.Data.GetType().GetProperties())
+                {
+                    if (property.Name.ToUpper() == "ID" || property.PropertyType == typeof(Guid) || excludedProperties.Contains(property.Name.ToUpper()))
+                    {
+                        @if (property.Name.ToUpper(CultureInfo.GetCultureInfo("en-US")) == "ISACTIVE")
+                        {
+                            <div class="col-md-6">
+                                <label for="@property.Name" class="form-label">@property.Name</label>
+                                <input type="checkbox" id="IsActive" name="IsActive" @(property.GetValue(Model.Data) as bool? == true ? "checked" : "") value="true" />
+                            </div>
+                            continue;
+                        }
+
+
+
+                        <input type="hidden" id="@property.Name" name="@property.Name" value="@property.GetValue(Model.Data)" />
+                        continue;
+                    }
+                    
+
+
+                    if (property.PropertyType == typeof(string) ||
+                    property.PropertyType.IsValueType)
+                    {
+                        <div class="col-md-6">
+                            <label for="@property.Name" class="form-label">@property.Name</label>
+                            <input id="@property.Name" name="@property.Name" value="@property.GetValue(Model.Data)" class="form-control" />
+                        </div>
+                    }
+                    
+
+                }
+            }
+            <div class="col-12 text-end">
+                <button asp-controller="@($"{Model.BaseRoute}Edit")" asp-action="@($"{Model.BaseRoute}Update")" method="post" type="submit" class="btn btn-primary">Kaydet</button>
+                <a href="@Model.BaseRoute" class="btn btn-secondary">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>

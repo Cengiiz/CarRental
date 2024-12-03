@@ -1,4 +1,5 @@
 ﻿using CarRentalService.DTOs;
+using RestSharp;
 
 namespace CarRentalMVC.Services
 {
@@ -6,6 +7,8 @@ namespace CarRentalMVC.Services
     {
         Task<UserDto> GetUserAsync(int id);
         Task<List<UserDto>> GetUsersAsync();
-        Task<UserDto> UpdateUserAsync(UserDto userDto); 
+        Task<RestResponse> UpdateUserAsync(UserDto userDto);
+        Task<RestResponse> ValidateUser(string userName,string pass);
+        
     }
 }

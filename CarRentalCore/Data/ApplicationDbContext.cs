@@ -14,6 +14,8 @@ namespace CarRentalCore.Data
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleLog> VehicleLogs { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<MenuItemRole> MenuItemRoles { get; set; }
 
 
     }
