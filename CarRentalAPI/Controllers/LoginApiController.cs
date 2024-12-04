@@ -18,7 +18,7 @@ namespace CarRentalAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("validate/{username}/{password}")]
+        [HttpGet("validate/username={username}&password={password}")]
         public async Task<ActionResult<UserDto>> ValidateUser(string username, string password)
         {
             var user = await _userService.ValidateUser(username, password);

@@ -44,13 +44,13 @@ namespace CarRentalMVC.Services
             return response;
         }
 
-        public async Task<RestResponse> ValidateUser(string userName, string pass)
+        public async Task<UserDto> ValidateUser(string userName, string pass)
         {
 
-            var request = new RestRequest($"validate?username={userName}&password={pass}", Method.Get);
-            var response = await _client.ExecuteAsync<RestResponse>(request);
+            var request = new RestRequest($"LoginApi/validate/username={userName}&password={pass}", Method.Get);
+            var response = await _client.ExecuteAsync<UserDto>(request);
 
-            return response;
+            return response.Data;
         }
 
 

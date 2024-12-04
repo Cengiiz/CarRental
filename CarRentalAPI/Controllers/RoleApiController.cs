@@ -31,13 +31,13 @@ namespace CarRentalAPI.Controllers
             return Ok(roleDto);
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<RoleDto>>> GetAll()
-        //{
-        //    var roles = await _roleService.GetAllAsync();
-        //    var roleDtos = _mapper.Map<IEnumerable<RoleDto>>(roles);
-        //    return Ok(roleDtos);
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<RoleDto>>> GetAll()
+        {
+            var roles = await _roleService.GetAllAsync();
+            var roleDtos = _mapper.Map<IEnumerable<RoleDto>>(roles);
+            return Ok(roleDtos);
+        }
 
         [HttpPost]
         public async Task<ActionResult<RoleDto>> Create(RoleDto roleDto)

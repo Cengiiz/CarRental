@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Araç Durumları";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Araçların Durumları</h2>
+    <div id="chartsContainer" class="row flex-wrap overflow-auto"></div>
+</div>
+
+<!-- CSS -->
+<style>
+    /* Konteyner Ayarları */
+    #chartsContainer {
+        max-height: 70vh; /* Konteyner yüksekliği ekranın %70’i ile sınırlı */
+        overflow-y: auto; /* Fazla grafikler için dikey kaydırma */
+        gap: 15px; /* Kartlar arasında boşluk */
+    }
+
+    /* Kart ve Grafik Ayarları */
+    .card {
+        height: 350px; /* Kartların sabit yüksekliği */
+    }
+
+    canvas {
+        max-height: 200px; /* Grafiklerin maksimum yüksekliği */
+    }
+</style>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/VehicleStatus/GetAllVehicleStatus')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('chartsContainer');
+                data.forEach(vehicle => {
+                    const col = document.createElement('div');
+                    col.className = 'col-md-6 col-lg-4'; // Her satırda 3 grafik olacak
+                    col.innerHTML = `
+                            <div class="card shadow-sm">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <h5 class="card-title text-center">${vehicle.vehicleName}</h5>
+                                    <canvas id="chart-${vehicle.vehicleName.replace(/\s/g, '-')}"></canvas>
+                                </div>
+                            </div>`;
+                    container.appendChild(col);
+
+                    const ctx = document.getElementById(`chart-${vehicle.vehicleName.replace(/\s/g, '-')}`).getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Çalışma', 'Bakım', 'Boşta Bekleme'],
+                            datasets: [{
+                                label: 'Yüzdelik Değerler',
+                                data: [vehicle.workPercentage, vehicle.maintenancePercentage, vehicle.idlePercentage],
+                                backgroundColor: ['rgba(54, 162, 235, 0.7)', 'rgba(255, 159, 64, 0.7)', 'rgba(75, 192, 192, 0.7)'],
+                                borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 159, 64, 1)', 'rgba(75, 192, 192, 1)'],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                y: { beginAtZero: true }
+                            }
+                        }
+                    });
+                });
+            })
+            .catch(error => console.error('Veri yüklenirken hata oluştu:', error));
+    });
+</script>

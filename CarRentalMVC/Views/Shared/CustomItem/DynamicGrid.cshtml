@@ -1,13 +1,20 @@
-﻿@model CarRentalMVC.Models.DynamicGrid.DynamicGridViewModel
+﻿@using System.Reflection
+@model CarRentalMVC.Models.DynamicGrid.DynamicGridViewModel
 
 <table class="table table-bordered table-striped">
+    <button class="btn btn-primary btn-sm"
+            data-id="0"
+            data-url="@Url.RouteUrl(new { controller = $"{@Model.BaseRoute}Edit", action = $"{@Model.BaseRoute}Edit", id = 0 })"
+            onclick="updateItem(this)">
+        Add
+    </button>
     <thead class="thead-dark">
         <tr>
             @if (Model.Data != null && Model.Data.Any())
             {
                 foreach (var property in Model.Data.First().GetType().GetProperties())
                 {
-                    if (IsCollection(property.PropertyType))
+                    if (IsContinue(property))
                         continue;
 
                     <th>
@@ -27,7 +34,7 @@
                 <tr>
                     @foreach (var property in item.GetType().GetProperties())
                     {
-                        if (IsCollection(property.PropertyType))
+                        if (IsContinue(property))
                             continue;
 
                         <td>@property.GetValue(item)</td>
@@ -115,6 +122,16 @@
 
         window.location.href = url;
     }
+    function addItem(button) {
+        var url = $(button).data('url');
+
+        if (!url) {
+            alert("Invalid update URL");
+            return;
+        }
+
+        window.location.href = url + "/0";
+    }
 
     function deleteItem(button) {
         var itemId = $(button).data('id');
@@ -145,9 +162,9 @@
 
 @functions {
 
-    bool IsCollection(Type type)
+    bool IsContinue(PropertyInfo info)
     {
-        return (type.Name.StartsWith("ICollection") ||
-        type.IsClass) && type != typeof(string);
+        return info.Name.Contains("Id") || (info.PropertyType.Name.StartsWith("ICollection") ||
+        info.PropertyType.IsClass) && info.PropertyType != typeof(string);
     }
 }

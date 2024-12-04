@@ -1,0 +1,18 @@
+﻿@using CarRentalMVC.Models.DynamicEdit
+@model CarRentalService.DTOs.VehicleLogDto
+
+@{
+    ViewData["Title"] = "Vehicle Update";
+}
+
+<h1 class="mb-4" style="text-align:center">@ViewData["Title"]</h1>
+
+@{
+    var editModel = new DynamicEditViewModel
+            {
+                Data = Model,
+                BaseRoute = "VehicleLog",
+            };
+}
+
+@await Html.PartialAsync("~/Views/Shared/CustomItem/DynamicEdit.cshtml", editModel)

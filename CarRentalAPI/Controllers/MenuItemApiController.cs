@@ -28,7 +28,13 @@ namespace CarRentalAPI.Controllers
             var MenuItemDto = _mapper.Map<MenuItemDto>(menuItem);
             return Ok(MenuItemDto);
         }
-
+        [HttpGet("user={id}")]
+        public async Task<ActionResult<IEnumerable<MenuItemDto>>> GetUserMenuItemsAsync(int id)
+        {
+            var menuItems = await _menuItemService.GetUserMenuItemsAsync(id);
+            var menuItemDtos = _mapper.Map<IEnumerable<MenuItemDto>>(menuItems);
+            return Ok(menuItemDtos);
+        }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MenuItemDto>>> GetAll()
         {

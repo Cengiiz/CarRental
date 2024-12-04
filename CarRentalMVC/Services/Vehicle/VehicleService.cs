@@ -27,13 +27,13 @@ namespace CarRentalMVC.Services
             return response.Data;
         }
 
-        public async Task<RestResponse> UpdateVehicleAsync(VehicleDto userDto)
+        public async Task<RestResponse> UpdateVehicleAsync(VehicleDto vehicleDto)
         {
 
-            var request = new RestRequest($"VehicleApi/{userDto.Id}", Method.Put);
+            var request = new RestRequest($"VehicleApi/{vehicleDto.Id}", Method.Put);
 
 
-            var jsonBody = JsonSerializer.Serialize(userDto);
+            var jsonBody = JsonSerializer.Serialize(vehicleDto);
             request.AddJsonBody(jsonBody); // JSON gövdesini isteğe ekle
 
 

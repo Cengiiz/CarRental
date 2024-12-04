@@ -6,7 +6,6 @@ namespace CarRentalMVC
     {
         private static IHttpContextAccessor _httpContextAccessor;
 
-        // IHttpContextAccessor'ı DI container üzerinden alıyoruz
         public static void Initialize(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;

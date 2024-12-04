@@ -33,7 +33,7 @@ namespace CarRentalAPI.Controllers
         public async Task<ActionResult<IEnumerable<VehicleLogDto>>> GetAll()
         {
             var vehicleLogs = await _vehicleLogService.GetAllAsync();
-            var vehicleLogDtos = _mapper.Map<VehicleLogDto>(vehicleLogs);
+            var vehicleLogDtos = _mapper.Map<IEnumerable<VehicleLogDto>>(vehicleLogs);
             return Ok(vehicleLogDtos);
         }
 

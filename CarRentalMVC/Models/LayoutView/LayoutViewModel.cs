@@ -1,8 +1,10 @@
-﻿namespace CarRentalMVC.Models.LayoutView
+﻿using CarRentalService.DTOs;
+
+namespace CarRentalMVC.Models.LayoutView
 {
     public class LayoutViewModel
     {
-        public List<MenuItem> MenuItems { get; set; }
+        public List<MenuItemDto> MenuItems { get; set; }
     }
 
 }

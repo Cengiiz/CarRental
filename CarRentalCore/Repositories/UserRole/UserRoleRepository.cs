@@ -1,5 +1,7 @@
 ﻿using CarRentalCore.Data;
 using CarRentalCore.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace CarRentalCore.Repositories
 {
@@ -10,6 +12,13 @@ namespace CarRentalCore.Repositories
         public UserRoleRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task<List<UserRole>> GetAllAsync(Expression<Func<UserRole, bool>> predicate)
+        {
+            return await _context.UserRoles
+                .Where(predicate)
+                .ToListAsync();
         }
     }
 }

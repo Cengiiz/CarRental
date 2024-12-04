@@ -36,6 +36,7 @@ namespace CarRentalAPI.Controllers
             var menuItemRoleDtos = _mapper.Map<IEnumerable<MenuItemRoleDto>>(menuItems);
             return Ok(menuItemRoleDtos);
         }
+        
 
         [HttpPost]
         public async Task<ActionResult<MenuItemRoleDto>> Create(MenuItemRoleDto menuItemRoleDto)

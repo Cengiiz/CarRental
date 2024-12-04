@@ -8,7 +8,6 @@ namespace CarRentalMVC.Services
         Task<UserDto> GetUserAsync(int id);
         Task<List<UserDto>> GetUsersAsync();
         Task<RestResponse> UpdateUserAsync(UserDto userDto);
-        Task<RestResponse> ValidateUser(string userName,string pass);
-        
+        Task<UserDto> ValidateUser(string userName, string pass);
     }
 }

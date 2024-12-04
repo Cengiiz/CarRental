@@ -1,7 +1,4 @@
-﻿@using CarRentalMVC.Models.LayoutView
-@model LayoutViewModel
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,20 +16,9 @@
                     <button class="menu-toggle" id="menu-toggle">☰</button>
                 </div>
                 <div class="sidebar" id="sidebar">
-                    <ul class="nav flex-column">
-                        @foreach (var menuItem in Model.MenuItems.Where(m => m.ParentMenuItemId == null))
-                        {
-                            <li class="nav-item dropdown" id="@menuItem.Name">
-                                <a class="nav-link dropdown-toggle" href="#">@menuItem.Name</a>
-                                <ul class="collapse" id="@menuItem.Name + " Menu"">
-                                    @foreach (var subMenuItem in Model.MenuItems.Where(m => m.ParentMenuItemId == menuItem.Id))
-                                    {
-                                        <li><a class="dropdown-item" href="@subMenuItem.Url">@subMenuItem.Name</a></li>
-                                    }
-                                </ul>
-                            </li>
-                        }
-                    </ul>
+                    @await Component.InvokeAsync("Menu")
+
+
                 </div>
                 <main class="col-12 ms-sm-auto">
                     @RenderBody()

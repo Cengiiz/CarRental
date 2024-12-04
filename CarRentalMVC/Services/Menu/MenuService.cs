@@ -12,9 +12,15 @@ namespace CarRentalMVC.Services.Menu
             _client = client;
         }
 
-        public async Task<List<MenuItemDto>> GetMenuItemsAsync(int id)
+        public async Task<List<MenuItemDto>> GetMenuItemsAsync()
         {
             var request = new RestRequest($"MenuItemApi", Method.Get);
+            var response = await _client.ExecuteAsync<List<MenuItemDto>>(request);
+            return response.Data;
+        }
+        public async Task<List<MenuItemDto>> GetUserMenuItemsAsync(int id)
+        {
+            var request = new RestRequest($"MenuItemApi/user={id}", Method.Get);
             var response = await _client.ExecuteAsync<List<MenuItemDto>>(request);
             return response.Data;
         }

@@ -12,16 +12,22 @@ namespace CarRentalMVC.Controllers
         {
             _userService = userService;
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(UserDto userDto)
+        [Route("Login")]
+        public IActionResult Login()
         {
-            var res = await _userService.ValidateUser(userDto.UserName, userDto.PasswordHash);
 
-            if (res.IsSuccessful)
+            return View("~/Views/Login/Login.cshtml");
+        }
+        [Route("Validate")]
+        [HttpPost]
+        public async Task<IActionResult> LoginValidate(string username, string password)
+        {
+            var res = await _userService.ValidateUser(username, password);
+
+            if (res != null && res.Id > 0 && res.IsActive)
             {
-                SessionManager.SetUserSession(userDto);
-                return RedirectToAction("Index", "Home");
+                SessionManager.SetUserSession(res);
+                return RedirectToAction("Index","Home");
             }
 
             ModelState.AddModelError("", "Invalid login attempt.");

@@ -16,7 +16,7 @@ namespace CarRentalMVC.Controllers
         {
             VehicleDto vehicle = id > 0 ? await _vehicleService.GetVehicleAsync(id) : new VehicleDto();
 
-            return View("~/Views/vehicle/vehicleEdit.cshtml", vehicle);
+            return View("~/Views/Vehicle/VehicleEdit.cshtml", vehicle);
         }
 
         [HttpPost]

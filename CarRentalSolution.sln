@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalMVC", "CarRentalMV
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalCore", "CarRentalCore\CarRentalCore.csproj", "{FF7106BE-72A4-4027-B0A3-A4A9BAF6F34B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalService", "CarRentalService\CarRentalService.csproj", "{8D0AD1C7-91B6-43C8-AC1C-D3CD3613EFB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRentalService", "CarRentalService\CarRentalService.csproj", "{8D0AD1C7-91B6-43C8-AC1C-D3CD3613EFB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

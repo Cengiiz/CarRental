@@ -1,0 +1,17 @@
+﻿@using CarRentalService.DTOs
+@model List<MenuItemDto>
+
+<ul class="nav flex-column">
+    @foreach (var menuItem in Model.Where(m => m.ParentMenuItemId == null))
+    {
+        <li class="nav-item dropdown" id="@menuItem.Name">
+            <a class="nav-link dropdown-toggle" href="#">@menuItem.Name</a>
+            <ul class="collapse" id="@menuItem.Name + " Menu"">
+                @foreach (var subMenuItem in Model.Where(m => m.ParentMenuItemId == menuItem.Id && m.ParentMenuItemId > 0))
+                {
+                    <li><a class="dropdown-item" href="@subMenuItem.Url">@subMenuItem.Name</a></li>
+                }
+            </ul>
+        </li>
+    }
+</ul>
